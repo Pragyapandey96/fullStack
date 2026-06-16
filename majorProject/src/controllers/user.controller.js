@@ -5,6 +5,7 @@ import {uploadOnCloudinary} from "../utils/cloudinary.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import jwt from "jsonwebtoken";
 import { generateKey } from "crypto";
+import mongoose from "mongoose";
 
 
 const generateAccessAndRefreshToken = async(userId) => {
@@ -73,7 +74,7 @@ const coverImage = await uploadOnCloudinary(coverImageLocalPath)
 
 
 if (!avatar) {
-    throw new ApiError(400, "Avt file is required")
+    throw new ApiError(400, "Avatar file is required")
 }
 
 const user = await User.create({
@@ -176,10 +177,10 @@ const logoutUser = asyncHandler(async(req, res) => {
   .clearCookie("refreshToken", options)
   .json(new ApiResponse(200, {}, "User logged Out"))
 
-})
+});
 
-const refreshAccessToken = asyncHandler(async (req, res) 
-=> {
+const refreshAccessToken = asyncHandler(async(req, res) =>
+     {
    const incomingRefreshToken = req.cookies.refreshToken || 
    req.body.refreshToken
 
@@ -192,6 +193,7 @@ const refreshAccessToken = asyncHandler(async (req, res)
       incomingRefreshToken,
       process.env.REFRESH_TOKEN_SECRET
      )
+    
   
    const user = await User.findById(decodedToken?._id)
   
@@ -208,29 +210,30 @@ const refreshAccessToken = asyncHandler(async (req, res)
       secure: true
    }
   
-   const {accessToken, newRefreshToken} = await generateAccessAndRefreshToken(user._id)
+   const {accessToken,  refreshToken } = await generateAccessAndRefreshToken(user._id)
   
    return res
    .status(200)
    .cookie("accessToken", accessToken, options)
-   .cookie("refreshToken", newRefreshToken, options)
+   .cookie("refreshToken",  refreshToken ,options)
    .json (
       new ApiResponse(
           200,
-          {accessToken, refreshToken: newRefreshToken},
+          {accessToken, refreshToken },
           "Accessed Token refreshed"
       )
-   )
+   );
+
   } catch (error) {
     throw new ApiError(401, error?.message ||
         "Invalid refresh token"
-    )
+    );
   }
+});
 
-})
 
-const changeCurrentPassword = asyncHandler(async (req, res)
-=> {
+
+const changeCurrentPassword = asyncHandler (async (req, res) => {
     const {oldPassword, newPassword} = req.body
 
     const user = await User.findById(req.user?._id)
@@ -245,24 +248,25 @@ const changeCurrentPassword = asyncHandler(async (req, res)
 
    return res
    .status(200)
-   .json(new ApiResponse(200, {}, "Password change successfully"))
-})
+   .json(new ApiResponse(200, {}, "Password change successfully"));
+});
 
 const getCurrentUser = asyncHandler(async (req, res) => {
     return res
     .status(200)
-    .json(200, req.user, "current user fetched successfully")
-})
+    .json(
+        new ApiResponse(200, req.user, "current user fetched successfully")
+    );
+});
 
-const updateAccountDetails = asyncHandler(async (req, res) 
-=> {
+const updateAccountDetails = asyncHandler(async (req, res) => {
     const {fullName, email} = req.body
 
     if(!fullName || !email){
         throw new ApiError(401, "All fields are required")
     }
 
-  const user = User.findByIdAndUpdate(
+  const user = await User.findByIdAndUpdate(
     req.user?._id,
     {
         $set: {
@@ -275,7 +279,7 @@ const updateAccountDetails = asyncHandler(async (req, res)
 
 return res
 .status(200)
-.json(new ApiResponse(200, user, "Account details updated successfully"))
+.json(new ApiResponse(200, user, "Account details updated successfully"));
 });
 
 const updateUserAvatar = asyncHandler(async(req, res) => 
@@ -289,7 +293,7 @@ const updateUserAvatar = asyncHandler(async(req, res) =>
     const avatar = await uploadOnCloudinary
     (avatarLocalPath)
 
-    if(!avatar.url){
+    if(!avatar || !avatar.url){
         throw new ApiError(400, "Error while uploading avatar")
     }
 
@@ -306,11 +310,9 @@ const updateUserAvatar = asyncHandler(async(req, res) =>
     return res
     .status(200)
     .json(
-        new ApiResponse(200, user, "Avatar updated successfully"
-        ))
-
-
-})
+        new ApiResponse(200, user, "Avatar updated successfully")
+        );
+});
 const updateUserCoverImage = asyncHandler(async(req, res) => 
 {
     const coverImageLocalPath = req.file?.path
@@ -322,7 +324,7 @@ const updateUserCoverImage = asyncHandler(async(req, res) =>
     const coverImage = await uploadOnCloudinary
     (coverImageLocalPath)
 
-    if(!coverImage.url){
+    if(!coverImage || !coverImage.url){
         throw new ApiError(400, "Error while uploading coverImage")
     }
 
@@ -340,9 +342,9 @@ const updateUserCoverImage = asyncHandler(async(req, res) =>
     .status(200)
     .json(new ApiResponse(
         200, user, "Cover Image updated successfully"
-    ))
+    ));
 
-})
+});
 
 
 const getUserChannelProfile = asyncHandler(async (req, 
@@ -404,7 +406,7 @@ const getUserChannelProfile = asyncHandler(async (req,
                     email: 1
                 }
             }
-        ])
+        ]);
 
         if (!channel?.length) {
             throw new ApiError(404, "channel does not exists")
@@ -414,8 +416,8 @@ const getUserChannelProfile = asyncHandler(async (req,
         .status(200)
         .json(
             new ApiResponse(200, channel[0], "User channel fetched successfully")
-        )
-    })
+        );
+    });
 
     const getWatchHistory = asyncHandler(async(req, res) => {
         const user = await User.aggregate([
@@ -444,8 +446,9 @@ const getUserChannelProfile = asyncHandler(async (req,
                                         avatar: 1,
                                     }
                                 }
-                                ]
-                            }
+                                
+                             ]
+                         }
                         },
                         {
                             $addFields: {
@@ -457,14 +460,14 @@ const getUserChannelProfile = asyncHandler(async (req,
                     ]  
                 }
             }
-        ])
+        ]);
 
         return res
         .status(200)
         .json(
             new ApiResponse(200, user[0].watchHistory, "watch history fetched successfully")
-        )
-    })
+        );
+    });
 
 
 export {
