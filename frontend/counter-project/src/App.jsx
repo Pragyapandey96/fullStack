@@ -1,36 +1,19 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
-
+import Header from "./header";
 function App() {
- 
-
-  let [counter, setCounter] = useState(15)
-// let counter = 15
-
-const addValue = () => {
-  console.log("clicked", counter);
-   //counter = counter + 1
-   setCounter(counter + 1)
   
-}
-const removevalue =() => {
-  setCounter(counter - 1)
-}
-
-
   return (
-    <>
-     <h1>Chai aur React</h1>
-     <h2>Counter value: {counter}</h2>
+    <div>
+      <Header />
+      <h1>Hello React</h1>
+      <Fruit />
 
-     <button onClick={addValue}>Add value: {counter}</button>
-     <br />
-     <button onClick={removevalue}>remove value {counter}</button>
-     <p>footer: {counter}</p>
-    </>
+    </div>
+    
+  );
+}
+function Fruit() {
+  return (
+    <h1>Apple</h1>
   )
 }
 

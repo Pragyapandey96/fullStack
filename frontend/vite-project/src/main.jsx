@@ -35,7 +35,7 @@ const anotherUser = "Pragya"
 
 createRoot(document.getElementById('root')).render(
   
-   // <App />
-   reactElement
+   <App />
+   
   
 )

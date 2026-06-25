@@ -5,8 +5,7 @@ function App() {
 
   return (
   <> 
-  <Chai />
-  <h1>chai aur react {username}</h1>
+  <h1>Hello React</h1>
   </>
   
   );
