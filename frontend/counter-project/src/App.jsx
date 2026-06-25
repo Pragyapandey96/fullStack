@@ -1,20 +1,13 @@
-import Header from "./header";
+import ToDo from "./todo";
 function App() {
   
+ 
   return (
     <div>
-      <Header />
-      <h1>Hello React</h1>
-      <Fruit />
-
+      <ToDo />
     </div>
     
   );
-}
-function Fruit() {
-  return (
-    <h1>Apple</h1>
-  )
-}
 
-export default App
+}
+export default App;
