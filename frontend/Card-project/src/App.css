@@ -1,0 +1,39 @@
+.container{
+  display: flex;
+  gap: 20px;
+  justify-self: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+.parent{
+  border:  2px solid white;
+  background-color: bisque;
+  width: 300px;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items:center;
+  color: black;
+  flex-direction: column;
+  flex-wrap: wrap;
+
+}
+.parent h1{
+  color: black;
+}
+.parent img{
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+.parent button{
+  margin: 20px;
+  padding: 10px;
+  background-color: black;
+  color: bisque;
+  border-radius: 5px;
+}
