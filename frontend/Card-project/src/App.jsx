@@ -1,12 +1,15 @@
 import "./App.css"
 import Card from "./components/card.jsx"
+import JobCard from "./components/jobCard.jsx";
+import jobs from "./components/jobs.jsx";
 function App() {
   return (
-    <div>
-      <Card user="Pragya" img="https://www.shutterstock.com/shutterstock/videos/30050065/thumb/10.jpg?ip=x480" />
-      <Card user="Aman" img="https://media.istockphoto.com/id/1413248747/photo/young-male-tourist-taking-videos-and-photos-with-his-camera-on-white-salt-in-salt-lake.jpg?s=612x612&w=0&k=20&c=Q5wFgV8CbV39rE6b0rLPX6QmnKNbsXZ7QIdtNvPyj78="/>
+    <div className="job-container">
+      {jobs.map((job) => (
+        <JobCard key={job.id} job={job} />
+      ))}
     </div>
-  )
+  );
 }
 
 export default App;
