@@ -1,18 +1,22 @@
+import React from 'react'
 
-import Chai from "./chai";
-function App() {
-  const username = "Pragya"
+const App = () => {
+  const response = async() =>{
 
+      await fetch('https://picsum.photos')
+       console.log(response);
+       
+      }
   return (
-  <> 
-  <h1>Hello React</h1>
-  </>
-  
-  );
+    <div>
+     <button onClick={response}>Fetch img</button>
+    </div>
+  )
 }
 
-export default App;
-      
+export default App
+
+
 
       
 
