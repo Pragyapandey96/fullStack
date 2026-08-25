@@ -1,0 +1,18 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+
+#navbar{
+    background-color: #201d1d;
+    color: white;
+    height: 60px;
+}
+
+div{
+   width: 100px;
+   height: 100px;
+   margin: 25px;
+   padding: 25px;
+   display: inline-block;
+}

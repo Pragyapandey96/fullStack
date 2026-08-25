@@ -28,12 +28,14 @@ let loginUser = (name: string, email: string, isPaid: boolean = false) => {
 //     return "200 OK";
 //     }
 
-const getHello = (s: string): string =>3333
+const getHello = (s: string): string =>{
+    return s;
+}
 
     addTwo(5);
-    getUpper("Pragya");
+   // getUpper("Pragya");
     // Additional logic for signing up user
-    signUpUser("Pragya", "ppandey@gmail.com", false)
+    // signUpUser("Pragya", "ppandey@gmail.com", false)
 
 
 export{}

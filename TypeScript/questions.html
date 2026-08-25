@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Web Development PI Handbook</title>
+    <style>
+        /* ── RESET & BASE ── */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+            background: #f5f7fa;
+            color: #1e293b;
+            padding: 40px 20px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        .book {
+            background: #ffffff;
+            padding: 50px 60px;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            page-break-after: avoid;
+        }
+        h1, h2, h3, h4 {
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        h1 {
+            font-size: 2.8rem;
+            text-align: center;
+            margin-bottom: 0.2em;
+            color: #0f172a;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 1.2rem;
+            color: #475569;
+            margin-bottom: 1.8rem;
+            border-bottom: 3px solid #e2e8f0;
+            padding-bottom: 1.8rem;
+        }
+        h2 {
+            font-size: 2rem;
+            margin-top: 2.2rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 3px solid #3b82f6;
+            color: #0f172a;
+        }
+        h3 {
+            font-size: 1.4rem;
+            margin-top: 1.8rem;
+            color: #1e293b;
+        }
+        h4 {
+            font-size: 1.1rem;
+            margin-top: 1.2rem;
+            color: #334155;
+        }
+        p {
+            line-height: 1.7;
+            margin: 0.5rem 0;
+        }
+        .q {
+            background: #f1f5f9;
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 1.2rem;
+            color: #0f172a;
+        }
+        .q::before { content: "❓ "; }
+        .ans {
+            padding-left: 20px;
+            border-left: 4px solid #3b82f6;
+            margin: 0.4rem 0 0.8rem 0;
+        }
+        .ans strong { color: #0f172a; }
+        .badge {
+            display: inline-block;
+            background: #3b82f6;
+            color: #fff;
+            font-size: 0.75rem;
+            padding: 2px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+        }
+        .badge.green { background: #22c55e; }
+        .badge.orange { background: #f59e0b; }
+        .badge.red { background: #ef4444; }
+        .code-block {
+            background: #0f172a;
+            color: #e2e8f0;
+            padding: 16px 20px;
+            border-radius: 12px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 0.8rem 0 1.2rem 0;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+        .code-block .comment { color: #94a3b8; }
+        .table-wrap {
+            overflow-x: auto;
+            margin: 1rem 0 1.5rem 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #f8fafc;
+            border-radius: 12px;
+            overflow: hidden;
+            font-size: 0.95rem;
+        }
+        th {
+            background: #1e293b;
+            color: #fff;
+            font-weight: 600;
+            padding: 12px 16px;
+            text-align: left;
+        }
+        td {
+            padding: 10px 16px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:last-child td { border-bottom: none; }
+        .tip {
+            background: #eff6ff;
+            border-left: 6px solid #3b82f6;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .tip strong { color: #1e40af; }
+        .mistake {
+            background: #fef2f2;
+            border-left: 6px solid #ef4444;
+            padding: 14px 20px;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        .mistake strong { color: #b91c1c; }
+        .follow-up {
+            background: #fefce8;
+            border-left: 6px solid #eab308;
+            padding: 10px 18px;
+            border-radius: 8px;
+            margin: 0.8rem 0;
+        }
+        .follow-up strong { color: #854d0e; }
+        .page-break {
+            page-break-after: always;
+            border-bottom: 2px dashed #cbd5e1;
+            margin: 3rem 0;
+        }
+        .toc {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px 30px;
+            margin: 1.5rem 0;
+            background: #f8fafc;
+            padding: 20px 24px;
+            border-radius: 16px;
+        }
+        .toc a {
+            color: #1e293b;
+            text-decoration: none;
+            border-bottom: 1px dotted #cbd5e1;
+            padding: 4px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+        .toc a:hover { color: #2563eb; }
+        .toc .page { color: #64748b; }
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e2e8f0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+        .cover {
+            text-align: center;
+            padding: 4rem 2rem 3rem 2rem;
+            background: linear-gradient(145deg, #0f172a, #1e293b);
+            color: #fff;
+            border-radius: 24px;
+            margin-bottom: 3rem;
+        }
+        .cover h1 {
+            color: #fff;
+            font-size: 3.2rem;
+        }
+        .cover .subtitle {
+            color: #94a3b8;
+            border-bottom: none;
+        }
+        .cover .badge-cover {
+            display: inline-block;
+            background: #3b82f6;
+            padding: 6px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+        @media (max-width: 700px) {
+            .book { padding: 20px; }
+            .toc { grid-template-columns: 1fr; }
+            h1 { font-size: 2rem; }
+            .cover h1 { font-size: 2.2rem; }
+        }
+        @media print {
+            body { background: #fff; padding: 0; }
+            .book { box-shadow: none; border-radius: 0; padding: 30px 40px; }
+            .page-break { border-bottom: none; margin: 2rem 0; }
+            .code-block { background: #f1f5f9; color: #0f172a; }
+            .code-block .comment { color: #64748b; }
+            .cover { background: #0f172a; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .badge, .badge.green, .badge.orange, .badge.red { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .tip { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .mistake { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            .follow-up { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+            th { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="book">
+
+    <!-- ========== COVER ========== -->
+    <div class="cover">
+        <h1>Web Development<br />Personal Interview Handbook</h1>
+       
+        
+        <p style="color:#94a3b8; font-size:0.95rem;">
+            Frontend · Backend · Full‑Stack · Web · App
+        </p>
+        <p style="margin-top:2.5rem; color:#64748b; font-size:0.9rem;">
+            Concise Edition — Short Explanations + Real-World Examples
+        </p>
+    </div>
+
+    <!-- ========== SECTION 1 ========== -->
+    <h2 id="sec1">1. Web Development Fundamentals</h2>
+
+    <div class="q">What is web development?</div>
+    <div class="ans"><strong>Short:</strong> Building and maintaining websites and web applications.<br /><strong>Example:</strong> Creating Instagram’s feed (frontend) and the logic that saves your likes (backend).</div>
+
+    <div class="q">Website vs Web Application</div>
+    <div class="ans"><strong>Short:</strong> Website = informational. Web App = interactive.<br /><strong>Example:</strong> Wikipedia (website) vs Gmail (web app).</div>
+
+    <div class="q">Frontend vs Backend</div>
+    <div class="ans"><strong>Short:</strong> Frontend = what users see. Backend = server + logic + database.<br /><strong>Example:</strong> Login form UI = Frontend. Password verification = Backend.</div>
+
+    <div class="q">What happens when you type google.com?</div>
+    <div class="ans"><strong>Short:</strong> DNS → IP → TCP → HTTP request → server → response → browser renders.<br /><strong>Example:</strong> Like calling a friend: name (domain) → phonebook (DNS) → number (IP).</div>
+
+    <div class="q">What is DNS?</div>
+    <div class="ans"><strong>Short:</strong> Translates domain names to IP addresses.<br /><strong>Example:</strong> The internet’s phonebook.</div>
+
+    <div class="q">What is an IP address?</div>
+    <div class="ans"><strong>Short:</strong> Unique numerical label for each device.<br /><strong>Example:</strong> Your home address for the internet.</div>
+
+    <div class="q">What is HTTP?</div>
+    <div class="ans"><strong>Short:</strong> Protocol for transferring data on the web.<br /><strong>Example:</strong> The language your browser and server speak.</div>
+
+    <div class="q">What is HTTPS?</div>
+    <div class="ans"><strong>Short:</strong> HTTP + encryption (SSL/TLS).<br /><strong>Example:</strong> The padlock icon in your browser when banking online.</div>
+
+    <div class="q">What is CRUD?</div>
+    <div class="ans"><strong>Short:</strong> Create, Read, Update, Delete — the four basic database operations.<br /><strong>Example:</strong> Creating a post (Create), viewing it (Read), editing it (Update), deleting it (Delete).</div>
+
+    <div class="q">What is MVC?</div>
+    <div class="ans"><strong>Short:</strong> Model (data), View (UI), Controller (logic connecting them).<br /><strong>Example:</strong> Product data = Model, product page = View, code that fetches data = Controller.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 2 ========== -->
+    <h2 id="sec2">2. HTML</h2>
+
+    <div class="q">What is HTML?</div>
+    <div class="ans"><strong>Short:</strong> HyperText Markup Language — the skeleton of a webpage.<br /><strong>Example:</strong> Like the steel frame of a building.</div>
+
+    <div class="q">What is a semantic element?</div>
+    <div class="ans"><strong>Short:</strong> Tags that clearly describe their meaning (<code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;article&gt;</code>).<br /><strong>Example:</strong> Using <code>&lt;article&gt;</code> for a blog post instead of <code>&lt;div&gt;</code>.</div>
+
+    <div class="q">div vs span</div>
+    <div class="ans"><strong>Short:</strong> div = block-level (full width). span = inline (only needed width).<br /><strong>Example:</strong> div = a paragraph; span = a word inside a paragraph.</div>
+
+    <div class="q">id vs class</div>
+    <div class="ans"><strong>Short:</strong> id = unique (one element). class = reusable (many elements).<br /><strong>Example:</strong> <code>id="logo"</code> for the site logo; <code>class="btn"</code> for all buttons.</div>
+
+    <div class="q">What is the alt attribute?</div>
+    <div class="ans"><strong>Short:</strong> Provides alternative text for images (accessibility &amp; SEO).<br /><strong>Example:</strong> Screen readers read alt text for visually impaired users.</div>
+
+    <div class="q">What is a form?</div>
+    <div class="ans"><strong>Short:</strong> Collects user input and sends it to a server.<br /><strong>Example:</strong> Login page with email and password fields.</div>
+
+    <div class="q">What are data-* attributes?</div>
+    <div class="ans"><strong>Short:</strong> Store custom data in HTML for JavaScript to use.<br /><strong>Example:</strong> <code>&lt;button data-user-id="123"&gt;</code> → JS uses <code>dataset.userId</code>.</div>
+
+    <div class="q">Block vs Inline elements</div>
+    <div class="ans"><strong>Short:</strong> Block = new line, full width. Inline = no new line, content width.<br /><strong>Example:</strong> <code>&lt;p&gt;</code> (block) vs <code>&lt;a&gt;</code> (inline).</div>
+
+    <div class="q">What is an iframe?</div>
+    <div class="ans"><strong>Short:</strong> Embeds another webpage inside your page.<br /><strong>Example:</strong> Embedding a YouTube video on your site.</div>
+
+    <div class="q">Why is HTML structure important for SEO?</div>
+    <div class="ans"><strong>Short:</strong> Search engines use heading tags and semantics to understand content.<br /><strong>Example:</strong> Google ranks pages better when <code>&lt;h1&gt;</code> is used for main titles.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 3 ========== -->
+    <h2 id="sec3">3. CSS</h2>
+
+    <div class="q">What is the Box Model?</div>
+    <div class="ans"><strong>Short:</strong> Content → Padding → Border → Margin.<br /><strong>Example:</strong> A picture frame: picture = content, mat = padding, frame = border, space around frame = margin.</div>
+
+    <div class="q">How to center a div?</div>
+    <div class="ans"><strong>Short:</strong> Flexbox: <code>display: flex; justify-content: center; align-items: center;</code><br /><strong>Example:</strong> Centering a login card on a page.</div>
+
+    <div class="q">What is Flexbox?</div>
+    <div class="ans"><strong>Short:</strong> 1D layout model for rows or columns.<br /><strong>Example:</strong> Navigation bars, card layouts.</div>
+
+    <div class="q">What is CSS Grid?</div>
+    <div class="ans"><strong>Short:</strong> 2D layout model for rows and columns.<br /><strong>Example:</strong> Full-page layouts (header, sidebar, main content, footer).</div>
+
+    <div class="q">Flexbox vs Grid</div>
+    <div class="ans"><strong>Short:</strong> Flexbox = components (1D). Grid = page structure (2D).<br /><strong>Example:</strong> Flexbox for a navbar; Grid for a dashboard.</div>
+
+    <div class="q">What is Specificity?</div>
+    <div class="ans"><strong>Short:</strong> Browser decides which rule wins: inline &gt; ID &gt; class &gt; element.<br /><strong>Example:</strong> <code>#main</code> overrides <code>.text</code>.</div>
+
+    <div class="q">How to make a website responsive?</div>
+    <div class="ans"><strong>Short:</strong> Use media queries, flexible units (<code>%</code>, <code>rem</code>), and viewport meta tag.<br /><strong>Example:</strong> A site that adjusts from 3 columns on desktop to 1 column on mobile.</div>
+
+    <div class="q">What is a media query?</div>
+    <div class="ans"><strong>Short:</strong> Applies CSS only when certain conditions (like screen size) are met.<br /><strong>Example:</strong> <code>@media (max-width: 768px) { ... }</code> for mobile styles.</div>
+
+    <div class="q">Why does z-index not work?</div>
+    <div class="ans"><strong>Short:</strong> Only works on positioned elements (<code>relative</code>, <code>absolute</code>, <code>fixed</code>).<br /><strong>Example:</strong> Adding <code>position: relative</code> to both elements to fix layering.</div>
+
+    <div class="q">What are pseudo-classes?</div>
+    <div class="ans"><strong>Short:</strong> Apply styles based on state (e.g., <code>:hover</code>, <code>:focus</code>).<br /><strong>Example:</strong> Button changes color when you hover over it.</div>
+
+    <div class="q">What are pseudo-elements?</div>
+    <div class="ans"><strong>Short:</strong> Style specific parts of an element (e.g., <code>::before</code>, <code>::after</code>).<br /><strong>Example:</strong> Adding an icon before a link using <code>::before</code>.</div>
+
+    <div class="q">What is CSS Variables?</div>
+    <div class="ans"><strong>Short:</strong> Custom properties that store values for reuse (<code>--primary-color</code>).<br /><strong>Example:</strong> <code>--primary-color: #3498db;</code> used across the entire site.</div>
+
+    <div class="q">What is mobile-first design?</div>
+    <div class="ans"><strong>Short:</strong> Design for mobile screens first, then scale up for larger screens.<br /><strong>Example:</strong> Base styles for 320px width, then <code>@media</code> for tablets/desktops.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 4 ========== -->
+    <h2 id="sec4">4. JavaScript</h2>
+
+    <div class="q">What is JavaScript?</div>
+    <div class="ans"><strong>Short:</strong> Language that adds interactivity to web pages.<br /><strong>Example:</strong> Dropdown menus, form validation, live search.</div>
+
+    <div class="q">Data types in JS?</div>
+    <div class="ans"><strong>Short:</strong> Primitive: String, Number, Boolean, Null, Undefined, Symbol. Reference: Object.<br /><strong>Example:</strong> <code>"Hello"</code> (String), <code>42</code> (Number), <code>true</code> (Boolean).</div>
+
+    <div class="q">var vs let vs const</div>
+    <div class="ans"><strong>Short:</strong> var = function-scoped. let = block-scoped, can reassign. const = block-scoped, cannot reassign.<br /><strong>Example:</strong> Use <code>const</code> for config values, <code>let</code> for loop counters.</div>
+
+    <div class="q">== vs ===</div>
+    <div class="ans"><strong>Short:</strong> == checks value (type coercion). === checks value AND type.<br /><strong>Example:</strong> <code>5 == '5'</code> = true. <code>5 === '5'</code> = false.</div>
+
+    <div class="q">What is hoisting?</div>
+    <div class="ans"><strong>Short:</strong> Declarations moved to top of scope during compilation.<br /><strong>Example:</strong> <code>console.log(x); var x = 5;</code> → works (prints <code>undefined</code>).</div>
+
+    <div class="q">What is a closure?</div>
+    <div class="ans"><strong>Short:</strong> Inner function remembers outer function’s variables even after outer function finishes.<br /><strong>Example:</strong> A counter function that remembers its count.</div>
+
+    <div class="q">What is this?</div>
+    <div class="ans"><strong>Short:</strong> Refers to the execution context.<br /><strong>Example:</strong> <code>obj.greet()</code> → <code>this</code> = <code>obj</code>. Arrow functions inherit <code>this</code> from parent.</div>
+
+    <div class="q">What is the Event Loop?</div>
+    <div class="ans"><strong>Short:</strong> Manages async operations in JS (single-threaded).<br /><strong>Example:</strong> <code>setTimeout</code> callbacks wait in the queue until the call stack is empty.</div>
+
+    <div class="q">What is a Promise?</div>
+    <div class="ans"><strong>Short:</strong> Object representing future completion/failure of an async operation.<br /><strong>Example:</strong> Fetching data from an API.</div>
+
+    <div class="q">async/await</div>
+    <div class="ans"><strong>Short:</strong> Syntactic sugar over Promises for cleaner async code.<br /><strong>Example:</strong> <code>const data = await fetch('api');</code></div>
+
+    <div class="q">map, filter, reduce</div>
+    <div class="ans"><strong>Short:</strong> map = transform each element. filter = keep elements that pass test. reduce = accumulate to a single value.<br /><strong>Example:</strong> <code>[1,2,3].map(x=&gt;x*2)</code> = <code>[2,4,6]</code>.</div>
+
+    <div class="q">What is the Spread operator?</div>
+    <div class="ans"><strong>Short:</strong> Expands iterables into individual elements.<br /><strong>Example:</strong> <code>[...arr1, ...arr2]</code> merges two arrays.</div>
+
+    <div class="q">What is the Rest operator?</div>
+    <div class="ans"><strong>Short:</strong> Collects arguments into an array.<br /><strong>Example:</strong> <code>function sum(...nums) { return nums.reduce(...); }</code></div>
+
+    <div class="q">null vs undefined</div>
+    <div class="ans"><strong>Short:</strong> undefined = variable declared but not assigned. null = intentional absence of value.<br /><strong>Example:</strong> <code>let a;</code> → undefined. <code>let b = null;</code> → null.</div>
+
+    <div class="q">What is DOM?</div>
+    <div class="ans"><strong>Short:</strong> Tree representation of a webpage.<br /><strong>Example:</strong> <code>document.getElementById('id')</code> manipulates an element.</div>
+
+    <div class="q">Event Delegation</div>
+    <div class="ans"><strong>Short:</strong> Attach event listener to parent to handle events on child elements (even dynamic ones).<br /><strong>Example:</strong> A <code>ul</code> handles clicks on any <code>li</code> inside it.</div>
+
+    <div class="q">localStorage vs sessionStorage</div>
+    <div class="ans"><strong>Short:</strong> localStorage = persists even after browser closes. sessionStorage = cleared when tab closes.<br /><strong>Example:</strong> Saving user theme preference = localStorage.</div>
+
+    <div class="q">What is a pure function?</div>
+    <div class="ans"><strong>Short:</strong> Same input → same output. No side effects.<br /><strong>Example:</strong> <code>function add(a,b) { return a+b; }</code> is pure.</div>
+
+    <div class="q">What is setTimeout?</div>
+    <div class="ans"><strong>Short:</strong> Executes code after a delay (in ms).<br /><strong>Example:</strong> <code>setTimeout(() =&gt; alert('Hi'), 3000);</code> → alerts after 3 seconds.</div>
+
+    <div class="q">What is fetch?</div>
+    <div class="ans"><strong>Short:</strong> Modern way to make HTTP requests.<br /><strong>Example:</strong> <code>fetch('https://api.example.com/users')</code></div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 5 ========== -->
+    <h2 id="sec5">5. React</h2>
+
+    <div class="q">What is React?</div>
+    <div class="ans"><strong>Short:</strong> Library for building UI components.<br /><strong>Example:</strong> Facebook’s news feed is built with React.</div>
+
+    <div class="q">What is JSX?</div>
+    <div class="ans"><strong>Short:</strong> HTML-like syntax inside JavaScript.<br /><strong>Example:</strong> <code>&lt;h1 className="title"&gt;Hello&lt;/h1&gt;</code></div>
+
+    <div class="q">What is the Virtual DOM?</div>
+    <div class="ans"><strong>Short:</strong> Lightweight copy of the real DOM for performance.<br /><strong>Example:</strong> React updates only changed parts instead of re-rendering everything.</div>
+
+    <div class="q">Props vs State</div>
+    <div class="ans"><strong>Short:</strong> Props = read-only data passed from parent. State = mutable data inside component.<br /><strong>Example:</strong> A user’s name passed to a profile component = Props. A counter = State.</div>
+
+    <div class="q">What is useState?</div>
+    <div class="ans"><strong>Short:</strong> Hook that lets functional components manage state.<br /><strong>Example:</strong> <code>const [count, setCount] = useState(0);</code></div>
+
+    <div class="q">What is useEffect?</div>
+    <div class="ans"><strong>Short:</strong> Hook for side effects (API calls, subscriptions).<br /><strong>Example:</strong> Fetching data when component loads: <code>useEffect(() =&gt; { fetchData(); }, []);</code></div>
+
+    <div class="q">What is useContext?</div>
+    <div class="ans"><strong>Short:</strong> Shares state across components without prop drilling.<br /><strong>Example:</strong> User authentication state used by navbar, profile, settings.</div>
+
+    <div class="q">What is useMemo?</div>
+    <div class="ans"><strong>Short:</strong> Caches expensive calculations.<br /><strong>Example:</strong> Caching a filtered list that only recalculates when the input changes.</div>
+
+    <div class="q">What is useCallback?</div>
+    <div class="ans"><strong>Short:</strong> Caches function references to prevent re-renders.<br /><strong>Example:</strong> A callback passed to a child component.</div>
+
+    <div class="q">What is React Router?</div>
+    <div class="ans"><strong>Short:</strong> Manages navigation in a React app (SPA).<br /><strong>Example:</strong> <code>/home</code>, <code>/about</code>, <code>/users/:id</code> routes.</div>
+
+    <div class="q">What is a Custom Hook?</div>
+    <div class="ans"><strong>Short:</strong> Reusable logic extracted into a function (<code>useFetch</code>).<br /><strong>Example:</strong> <code>useFetch('api/users')</code> returns data, loading, error.</div>
+
+    <div class="q">What is Conditional Rendering?</div>
+    <div class="ans"><strong>Short:</strong> Rendering UI based on conditions.<br /><strong>Example:</strong> <code>{isLoggedIn ? &lt;Dashboard /&gt; : &lt;Login /&gt;}</code></div>
+
+    <div class="q">What are keys in lists?</div>
+    <div class="ans"><strong>Short:</strong> Unique IDs for list items to help React track changes.<br /><strong>Example:</strong> <code>&lt;li key={user.id}&gt;{user.name}&lt;/li&gt;</code></div>
+
+    <div class="q">Controlled vs Uncontrolled Components</div>
+    <div class="ans"><strong>Short:</strong> Controlled = form data handled by React state. Uncontrolled = data handled by DOM.<br /><strong>Example:</strong> Controlled: <code>&lt;input value={name} onChange={...} /&gt;</code>.</div>
+
+    <div class="q">What is reconciliation?</div>
+    <div class="ans"><strong>Short:</strong> React’s process of comparing Virtual DOM trees to determine changes.<br /><strong>Example:</strong> After state change, React finds minimal updates needed.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 6 ========== -->
+    <h2 id="sec6">6. Backend — Node.js &amp; Express</h2>
+
+    <div class="q">What is Node.js?</div>
+    <div class="ans"><strong>Short:</strong> JavaScript runtime built on Chrome’s V8 engine.<br /><strong>Example:</strong> Runs server-side JS, powers APIs.</div>
+
+    <div class="q">What is Express.js?</div>
+    <div class="ans"><strong>Short:</strong> Web framework for Node.js.<br /><strong>Example:</strong> <code>app.get('/users', (req, res) =&gt; res.json(users));</code></div>
+
+    <div class="q">What is Middleware?</div>
+    <div class="ans"><strong>Short:</strong> Functions that run between request and response.<br /><strong>Example:</strong> Logger, authentication, parser.</div>
+
+    <div class="q">What is a REST API?</div>
+    <div class="ans"><strong>Short:</strong> API using HTTP methods for CRUD operations.<br /><strong>Example:</strong> <code>GET /users</code>, <code>POST /users</code>, <code>PUT /users/:id</code>.</div>
+
+    <div class="q">What is the Event Loop in Node?</div>
+    <div class="ans"><strong>Short:</strong> Handles async tasks without blocking the main thread.<br /><strong>Example:</strong> While reading a file, Node continues processing other requests.</div>
+
+    <div class="q">What is package.json?</div>
+    <div class="ans"><strong>Short:</strong> Project metadata and dependencies file.<br /><strong>Example:</strong> Lists <code>express</code>, <code>mongoose</code>, scripts.</div>
+
+    <div class="q">HTTP Methods</div>
+    <div class="ans"><strong>Short:</strong> GET (read), POST (create), PUT (replace), PATCH (partial update), DELETE (remove).<br /><strong>Example:</strong> <code>POST /posts</code> creates a new blog post.</div>
+
+    <div class="q">Error Handling in Node</div>
+    <div class="ans"><strong>Short:</strong> Try-catch with async/await, error-handling middleware.<br /><strong>Example:</strong> <code>next(err)</code> passes error to global error handler.</div>
+
+    <div class="q">What is CORS?</div>
+    <div class="ans"><strong>Short:</strong> Browser security that restricts cross-origin requests.<br /><strong>Example:</strong> <code>app.use(cors({ origin: 'http://localhost:3000' }));</code></div>
+
+    <div class="q">What is JWT?</div>
+    <div class="ans"><strong>Short:</strong> Stateless authentication token.<br /><strong>Example:</strong> User logs in → server returns JWT → client sends it in headers for subsequent requests.</div>
+
+    <div class="q">What is dotenv?</div>
+    <div class="ans"><strong>Short:</strong> Loads environment variables from <code>.env</code> file.<br /><strong>Example:</strong> <code>PORT=5000</code>, <code>DATABASE_URL=mongodb://...</code>.</div>
+
+    <div class="q">What is bcrypt?</div>
+    <div class="ans"><strong>Short:</strong> Library for hashing passwords.<br /><strong>Example:</strong> <code>bcrypt.hash(password, 10)</code>.</div>
+
+    <div class="q">What is fs module?</div>
+    <div class="ans"><strong>Short:</strong> File system operations in Node.<br /><strong>Example:</strong> <code>fs.readFile('./file.txt', 'utf8', callback)</code>.</div>
+
+    <div class="q">What is express.json()?</div>
+    <div class="ans"><strong>Short:</strong> Middleware to parse JSON request bodies.<br /><strong>Example:</strong> <code>req.body</code> contains parsed JSON data.</div>
+
+    <div class="q">What is process manager (PM2)?</div>
+    <div class="ans"><strong>Short:</strong> Keeps Node apps running in production.<br /><strong>Example:</strong> <code>pm2 start server.js</code> keeps it alive after crashes.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 7 ========== -->
+    <h2 id="sec7">7. Databases</h2>
+
+    <div class="q">SQL vs NoSQL</div>
+    <div class="ans"><strong>Short:</strong> SQL = structured tables. NoSQL = flexible documents.<br /><strong>Example:</strong> SQL for banking (transactions). NoSQL for social media posts.</div>
+
+    <div class="q">What is a Primary Key?</div>
+    <div class="ans"><strong>Short:</strong> Unique identifier for each row.<br /><strong>Example:</strong> <code>user_id</code> in a users table.</div>
+
+    <div class="q">What is a Foreign Key?</div>
+    <div class="ans"><strong>Short:</strong> Links to primary key in another table.<br /><strong>Example:</strong> <code>order.user_id</code> references <code>users.user_id</code>.</div>
+
+    <div class="q">Types of Relationships</div>
+    <div class="ans"><strong>Short:</strong> One-to-One, One-to-Many, Many-to-Many.<br /><strong>Example:</strong> One user has many orders (One-to-Many).</div>
+
+    <div class="q">What is INNER JOIN?</div>
+    <div class="ans"><strong>Short:</strong> Returns rows with matching values in both tables.<br /><strong>Example:</strong> <code>SELECT * FROM orders INNER JOIN users ON orders.user_id = users.id;</code></div>
+
+    <div class="q">What is LEFT JOIN?</div>
+    <div class="ans"><strong>Short:</strong> All rows from left table, matching rows from right (NULL if no match).<br /><strong>Example:</strong> All users, even those without orders.</div>
+
+    <div class="q">What is Normalization?</div>
+    <div class="ans"><strong>Short:</strong> Reduces data redundancy.<br /><strong>Example:</strong> Storing user names once, not in every order.</div>
+
+    <div class="q">What is an Index?</div>
+    <div class="ans"><strong>Short:</strong> Speeds up queries.<br /><strong>Example:</strong> Index on <code>email</code> column makes <code>WHERE email = ...</code> faster.</div>
+
+    <div class="q">What is MongoDB?</div>
+    <div class="ans"><strong>Short:</strong> NoSQL document database.<br /><strong>Example:</strong> <code>db.users.find({ name: 'John' })</code>.</div>
+
+    <div class="q">What is Mongoose?</div>
+    <div class="ans"><strong>Short:</strong> ODM for MongoDB in Node.js.<br /><strong>Example:</strong> <code>User.findOne({ email: 'john@example.com' })</code>.</div>
+
+    <div class="q">Embedded vs Referenced Data</div>
+    <div class="ans"><strong>Short:</strong> Embedded = data inside parent document. Reference = ID pointing to another document.<br /><strong>Example:</strong> Comments inside a blog post (embedded) vs user ID referencing a users collection.</div>
+
+    <div class="q">What is ACID?</div>
+    <div class="ans"><strong>Short:</strong> Atomicity, Consistency, Isolation, Durability — ensures reliable transactions.<br /><strong>Example:</strong> Bank transfer: if one step fails, the whole transaction rolls back.</div>
+
+    <div class="q">What is Aggregation in MongoDB?</div>
+    <div class="ans"><strong>Short:</strong> Pipeline for processing data (like GROUP BY in SQL).<br /><strong>Example:</strong> <code>db.orders.aggregate([{ $group: { _id: '$user_id', total: { $sum: '$amount' } } }])</code></div>
+
+    <div class="q">What is Schema in Mongoose?</div>
+    <div class="ans"><strong>Short:</strong> Defines the structure of a document.<br /><strong>Example:</strong> <code>new mongoose.Schema({ name: String, age: Number })</code></div>
+
+    <div class="q">What is a Transaction?</div>
+    <div class="ans"><strong>Short:</strong> Group of operations that execute as one unit.<br /><strong>Example:</strong> Booking a flight and deducting payment in one go.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 8 ========== -->
+    <h2 id="sec8">8. APIs &amp; HTTP</h2>
+
+    <div class="q">What is an API?</div>
+    <div class="ans"><strong>Short:</strong> Interface for apps to communicate.<br /><strong>Example:</strong> Weather API returns weather data for a city.</div>
+
+    <div class="q">What is HTTP?</div>
+    <div class="ans"><strong>Short:</strong> Protocol for transferring data on the web.<br /><strong>Example:</strong> Browser → Server uses HTTP.</div>
+
+    <div class="q">What is HTTPS?</div>
+    <div class="ans"><strong>Short:</strong> HTTP encrypted with SSL/TLS.<br /><strong>Example:</strong> Banking websites.</div>
+
+    <div class="q">HTTP Status Codes</div>
+    <div class="ans"><strong>Short:</strong> 2xx = success, 3xx = redirect, 4xx = client error, 5xx = server error.<br /><strong>Example:</strong> 200 OK, 404 Not Found, 500 Internal Server Error.</div>
+
+    <div class="q">Query vs Path Parameters</div>
+    <div class="ans"><strong>Short:</strong> Path = <code>/users/123</code>. Query = <code>/users?age=25</code>.<br /><strong>Example:</strong> <code>GET /products/123</code> = specific product. <code>GET /products?category=electronics</code> = filtered list.</div>
+
+    <div class="q">What is JSON?</div>
+    <div class="ans"><strong>Short:</strong> Lightweight data format.<br /><strong>Example:</strong> <code>{"name": "John", "age": 30}</code>.</div>
+
+    <div class="q">What is API Versioning?</div>
+    <div class="ans"><strong>Short:</strong> Managing changes without breaking clients.<br /><strong>Example:</strong> <code>/v1/users</code> and <code>/v2/users</code>.</div>
+
+    <div class="q">What is Rate Limiting?</div>
+    <div class="ans"><strong>Short:</strong> Limits requests per user to prevent abuse.<br /><strong>Example:</strong> 100 requests per minute.</div>
+
+    <div class="q">What is Postman?</div>
+    <div class="ans"><strong>Short:</strong> Tool for testing APIs.<br /><strong>Example:</strong> Sending <code>GET /users</code> to see response.</div>
+
+    <div class="q">What is RESTful API?</div>
+    <div class="ans"><strong>Short:</strong> API following REST principles (stateless, cacheable, uniform interface).<br /><strong>Example:</strong> <code>GET /users</code>, <code>POST /users</code>.</div>
+
+    <div class="q">PUT vs PATCH</div>
+    <div class="ans"><strong>Short:</strong> PUT = replace entire resource. PATCH = partial update.<br /><strong>Example:</strong> Updating a user’s entire profile = PUT. Updating just email = PATCH.</div>
+
+    <div class="q">What is Authorization header?</div>
+    <div class="ans"><strong>Short:</strong> Sends credentials (like JWT) with requests.<br /><strong>Example:</strong> <code>Authorization: Bearer &lt;token&gt;</code>.</div>
+
+    <div class="q">What is an API Gateway?</div>
+    <div class="ans"><strong>Short:</strong> Single entry point for multiple APIs.<br /><strong>Example:</strong> Routes requests to different microservices.</div>
+
+    <div class="q">What is idempotency?</div>
+    <div class="ans"><strong>Short:</strong> Same request multiple times has same effect.<br /><strong>Example:</strong> <code>PUT</code> and <code>DELETE</code> are idempotent; <code>POST</code> is not.</div>
+
+    <div class="q">What is WebSocket?</div>
+    <div class="ans"><strong>Short:</strong> Bidirectional real-time communication.<br /><strong>Example:</strong> Chat apps, live notifications.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 9 ========== -->
+    <h2 id="sec9">9. Git &amp; GitHub</h2>
+
+    <div class="q">What is Git?</div>
+    <div class="ans"><strong>Short:</strong> Version control system.<br /><strong>Example:</strong> Tracks changes to your code like “Track Changes” in Word.</div>
+
+    <div class="q">What is GitHub?</div>
+    <div class="ans"><strong>Short:</strong> Platform for hosting Git repositories.<br /><strong>Example:</strong> Store your projects online, collaborate with others.</div>
+
+    <div class="q">What is a commit?</div>
+    <div class="ans"><strong>Short:</strong> Snapshot of your code.<br /><strong>Example:</strong> <code>git commit -m "Added login page"</code>.</div>
+
+    <div class="q">What is a branch?</div>
+    <div class="ans"><strong>Short:</strong> Independent line of development.<br /><strong>Example:</strong> <code>feature-login</code> branch for login feature.</div>
+
+    <div class="q">merge vs rebase</div>
+    <div class="ans"><strong>Short:</strong> merge = combines branches, preserves history. rebase = rewrites history for linear commits.<br /><strong>Example:</strong> Merge a feature branch into main.</div>
+
+    <div class="q">What is a Pull Request?</div>
+    <div class="ans"><strong>Short:</strong> Request to merge code after review.<br /><strong>Example:</strong> Team reviews code on GitHub before merging.</div>
+
+    <div class="q">How to resolve merge conflict?</div>
+    <div class="ans"><strong>Short:</strong> Edit files to remove conflict markers, then <code>add</code> and <code>commit</code>.<br /><strong>Example:</strong> Two devs edit same line → manual fix.</div>
+
+    <div class="q">What is .gitignore?</div>
+    <div class="ans"><strong>Short:</strong> Tells Git which files to ignore.<br /><strong>Example:</strong> <code>node_modules/</code>, <code>.env</code>.</div>
+
+    <div class="q">git clone vs git fork</div>
+    <div class="ans"><strong>Short:</strong> clone = copy repo locally. fork = copy repo on GitHub.<br /><strong>Example:</strong> Fork an open-source project to contribute.</div>
+
+    <div class="q">What is git stash?</div>
+    <div class="ans"><strong>Short:</strong> Temporarily saves uncommitted changes.<br /><strong>Example:</strong> Switch branches without committing WIP.</div>
+
+    <div class="q">What is git rebase?</div>
+    <div class="ans"><strong>Short:</strong> Moves commits to a new base.<br /><strong>Example:</strong> Clean up commit history before merging.</div>
+
+    <div class="q">What is a HEAD?</div>
+    <div class="ans"><strong>Short:</strong> Points to the current commit/branch.<br /><strong>Example:</strong> Where you are in the repository.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 10 ========== -->
+    <h2 id="sec10">10. Deployment &amp; Production</h2>
+
+    <div class="q">What is deployment?</div>
+    <div class="ans"><strong>Short:</strong> Making your app live on a server.<br /><strong>Example:</strong> Uploading your React app to Vercel.</div>
+
+    <div class="q">Development vs Production</div>
+    <div class="ans"><strong>Short:</strong> Dev = local testing. Production = live, user-facing.<br /><strong>Example:</strong> <code>localhost:3000</code> vs <code>myapp.com</code>.</div>
+
+    <div class="q">How to deploy React?</div>
+    <div class="ans"><strong>Short:</strong> <code>npm run build</code> → upload <code>build</code> folder to hosting.<br /><strong>Example:</strong> Vercel, Netlify.</div>
+
+    <div class="q">How to deploy Node.js?</div>
+    <div class="ans"><strong>Short:</strong> Push to server → <code>npm install</code> → <code>npm start</code> (use PM2).<br /><strong>Example:</strong> Render, Heroku, AWS EC2.</div>
+
+    <div class="q">What are Environment Variables?</div>
+    <div class="ans"><strong>Short:</strong> Config values stored outside code.<br /><strong>Example:</strong> <code>DATABASE_URL</code>, <code>JWT_SECRET</code>.</div>
+
+    <div class="q">What is CI/CD?</div>
+    <div class="ans"><strong>Short:</strong> Automate testing and deployment.<br /><strong>Example:</strong> GitHub Actions runs tests on every push.</div>
+
+    <div class="q">What is a build?</div>
+    <div class="ans"><strong>Short:</strong> Optimized, minified version of your app.<br /><strong>Example:</strong> <code>dist/</code> folder in Vite.</div>
+
+    <div class="q">What is a CDN?</div>
+    <div class="ans"><strong>Short:</strong> Distributes static assets globally.<br /><strong>Example:</strong> Loading images from a CDN for faster load times.</div>
+
+    <div class="q">What is Nginx?</div>
+    <div class="ans"><strong>Short:</strong> Web server and reverse proxy.<br /><strong>Example:</strong> Routes traffic to Node.js app, serves static files.</div>
+
+    <div class="q">How to debug deployed app?</div>
+    <div class="ans"><strong>Short:</strong> Check logs, environment variables, CORS, build.<br /><strong>Example:</strong> <code>heroku logs --tail</code>.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 11 ========== -->
+    <h2 id="sec11">11. Web Security</h2>
+
+    <div class="q">Authentication vs Authorization</div>
+    <div class="ans"><strong>Short:</strong> AuthN = who you are. AuthZ = what you can access.<br /><strong>Example:</strong> Login = AuthN. Admin access = AuthZ.</div>
+
+    <div class="q">What is XSS?</div>
+    <div class="ans"><strong>Short:</strong> Injecting malicious scripts into web pages.<br /><strong>Example:</strong> <code>&lt;script&gt;alert('Hacked')&lt;/script&gt;</code> in a comment.<br /><strong>Prevention:</strong> Sanitize user input.</div>
+
+    <div class="q">What is CSRF?</div>
+    <div class="ans"><strong>Short:</strong> Tricking authenticated user into unwanted actions.<br /><strong>Example:</strong> Malicious site triggers a bank transfer.<br /><strong>Prevention:</strong> Anti-CSRF tokens, SameSite cookies.</div>
+
+    <div class="q">What is SQL Injection?</div>
+    <div class="ans"><strong>Short:</strong> Injecting malicious SQL queries.<br /><strong>Example:</strong> <code>' OR '1'='1</code> bypasses login.<br /><strong>Prevention:</strong> Prepared statements.</div>
+
+    <div class="q">Why hash passwords?</div>
+    <div class="ans"><strong>Short:</strong> Prevent plaintext exposure if database leaks.<br /><strong>Example:</strong> Use bcrypt to hash <code>password123</code> into <code>$2b$10$...</code>.</div>
+
+    <div class="q">What is HTTPS?</div>
+    <div class="ans"><strong>Short:</strong> Encrypts data between client and server.<br /><strong>Example:</strong> Avoids man-in-the-middle attacks.</div>
+
+    <div class="q">What is JWT?</div>
+    <div class="ans"><strong>Short:</strong> Token for stateless authentication.<br /><strong>Example:</strong> <code>Authorization: Bearer &lt;token&gt;</code>.</div>
+
+    <div class="q">What is CORS?</div>
+    <div class="ans"><strong>Short:</strong> Restricts cross-origin requests.<br /><strong>Example:</strong> Frontend on port 3000, backend on 5000 → enable CORS.</div>
+
+    <div class="q">What is Rate Limiting?</div>
+    <div class="ans"><strong>Short:</strong> Prevents API abuse.<br /><strong>Example:</strong> 100 requests per IP per minute.</div>
+
+    <div class="q">What is Input Validation?</div>
+    <div class="ans"><strong>Short:</strong> Check user input before processing.<br /><strong>Example:</strong> <code>express-validator</code> ensures email is valid.</div>
+
+    <div class="q">Secure Cookies</div>
+    <div class="ans"><strong>Short:</strong> Set <code>HttpOnly</code>, <code>Secure</code>, <code>SameSite</code>.<br /><strong>Example:</strong> Prevents XSS from stealing cookies.</div>
+
+    <div class="q">What is .env?</div>
+    <div class="ans"><strong>Short:</strong> Stores secrets outside code.<br /><strong>Example:</strong> <code>API_KEY=abc123</code>.</div>
+
+    <div class="q">File Upload Security</div>
+    <div class="ans"><strong>Short:</strong> Validate file type, size, scan for malware.<br /><strong>Example:</strong> Only allow <code>.jpg</code>, <code>.png</code> under 5MB.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 12 ========== -->
+    <h2 id="sec12">12. Project-Based Questions</h2>
+
+    <div class="q">Tell me about your project.</div>
+    <div class="ans"><strong>Short:</strong> [Name] solves [Problem]. Used [Tech Stack]. My role was [X].<br /><strong>Example:</strong> "I built a task manager using React, Node, and MongoDB. It allows teams to assign and track tasks."</div>
+
+    <div class="q">Why did you choose this tech stack?</div>
+    <div class="ans"><strong>Short:</strong> React for components, Node for async, MongoDB for flexible schema.<br /><strong>Example:</strong> "React made the UI reusable, and Node handled real-time updates well."</div>
+
+    <div class="q">What was your hardest bug?</div>
+    <div class="ans"><strong>Short:</strong> [Bug description] → Solved by [solution].<br /><strong>Example:</strong> "A CORS error blocked frontend requests. Enabled CORS on the backend with proper origin."</div>
+
+    <div class="q">How would you scale this?</div>
+    <div class="ans"><strong>Short:</strong> Load balancer, database indexing, caching (Redis), CDN.<br /><strong>Example:</strong> "For 100k users, I'd use Redis caching and shard MongoDB."</div>
+
+    <div class="q">What would you improve?</div>
+    <div class="ans"><strong>Short:</strong> Better testing, CI/CD, cleaner architecture.<br /><strong>Example:</strong> "I'd add unit tests and a microservices architecture."</div>
+
+    <div class="q">What security did you use?</div>
+    <div class="ans"><strong>Short:</strong> JWT authentication, bcrypt hashing, HTTPS, input validation.<br /><strong>Example:</strong> "Passwords are hashed with bcrypt, and routes are protected with JWT."</div>
+
+    <div class="q">How did you deploy?</div>
+    <div class="ans"><strong>Short:</strong> Vercel for frontend, Render for backend.<br /><strong>Example:</strong> "Frontend on Vercel, backend on Render with environment variables."</div>
+
+    <div class="q">How do you handle authentication?</div>
+    <div class="ans"><strong>Short:</strong> Register → login → JWT token → sent in headers for protected routes.<br /><strong>Example:</strong> "User logs in, server returns JWT, stored in localStorage."</div>
+
+    <div class="q">How do you handle API errors?</div>
+    <div class="ans"><strong>Short:</strong> Try-catch, error middleware, user-friendly messages.<br /><strong>Example:</strong> "If API fails, show 'Something went wrong' toast."</div>
+
+    <div class="q">What did you learn?</div>
+    <div class="ans"><strong>Short:</strong> [Lesson learned, e.g., "importance of planning, testing, security"].<br /><strong>Example:</strong> "I learned to plan the database schema before coding."</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 13 ========== -->
+    <h2 id="sec13">13. Scenario-Based Questions</h2>
+
+    <div class="q">Scenario: Frontend can't connect to backend</div>
+    <div class="ans"><strong>Problem:</strong> "Network Error"<br /><strong>Solution:</strong> Start server, fix CORS, check API URL.<br /><strong>Example:</strong> "Backend on port 5000, frontend on 3000. Added CORS."</div>
+
+    <div class="q">Scenario: API returns 500</div>
+    <div class="ans"><strong>Solution:</strong> Check server logs → fix bug (e.g., missing env variable).<br /><strong>Example:</strong> "Logs showed missing DATABASE_URL. Added it to .env."</div>
+
+    <div class="q">Scenario: Slow database queries</div>
+    <div class="ans"><strong>Solution:</strong> Add indexes, optimize query, paginate.<br /><strong>Example:</strong> "Added index on email field, query dropped from 2s to 50ms."</div>
+
+    <div class="q">Scenario: Website loads slowly</div>
+    <div class="ans"><strong>Solution:</strong> Optimize images, code-split, use CDN.<br /><strong>Example:</strong> "Images were 5MB each. Compressed to 200KB, load time improved."</div>
+
+    <div class="q">Scenario: User auth failing</div>
+    <div class="ans"><strong>Solution:</strong> Verify bcrypt.compare, JWT secret, user exists.<br /><strong>Example:</strong> "User used wrong case in email. Case-insensitive query fixed it."</div>
+
+    <div class="q">Scenario: Two users update same record</div>
+    <div class="ans"><strong>Solution:</strong> Use optimistic locking or version fields.<br /><strong>Example:</strong> "Added a version field. If version mismatch, reject update."</div>
+
+    <div class="q">Scenario: 10x traffic spike</div>
+    <div class="ans"><strong>Solution:</strong> Auto-scaling, load balancer, caching.<br /><strong>Example:</strong> "Used AWS Auto Scaling and added Redis cache."</div>
+
+    <div class="q">Scenario: Sensitive data exposed</div>
+    <div class="ans"><strong>Solution:</strong> Sanitize response, remove sensitive fields.<br /><strong>Example:</strong> "Removed password and email from API response."</div>
+
+    <div class="q">Scenario: Production deployment breaks app</div>
+    <div class="ans"><strong>Solution:</strong> Rollback, fix bug, redeploy.<br /><strong>Example:</strong> "Forgot NODE_ENV=production. Rolled back and redeployed."</div>
+
+    <div class="q">Scenario: Malicious file upload</div>
+    <div class="ans"><strong>Solution:</strong> Validate file type, size, scan.<br /><strong>Example:</strong> "Allowed only .jpg, .png. Rejected .exe."</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 14 ========== -->
+    <h2 id="sec14">14. Tricky Questions</h2>
+
+    <div class="q">JS single-threaded but async?</div>
+    <div class="ans"><strong>Answer:</strong> Event Loop offloads async tasks to Web APIs, queues callbacks.<br /><strong>Example:</strong> <code>setTimeout</code> doesn't block other code.</div>
+
+    <div class="q">Why need Event Loop?</div>
+    <div class="ans"><strong>Answer:</strong> Prevents blocking the main thread.<br /><strong>Example:</strong> Without it, a <code>fetch</code> would freeze the UI.</div>
+
+    <div class="q">Why HTTPS if HTTP works?</div>
+    <div class="ans"><strong>Answer:</strong> Security — encrypts data to prevent interception.<br /><strong>Example:</strong> Banking without HTTPS = passwords exposed.</div>
+
+    <div class="q">Why not store passwords plain?</div>
+    <div class="ans"><strong>Answer:</strong> If database leaks, all passwords exposed.<br /><strong>Example:</strong> bcrypt hashing makes them hard to crack.</div>
+
+    <div class="q">Why not API keys in frontend?</div>
+    <div class="ans"><strong>Answer:</strong> Anyone can inspect source and steal keys.<br /><strong>Example:</strong> Exposing Google Maps API key leads to abuse.</div>
+
+    <div class="q">Why need database indexes?</div>
+    <div class="ans"><strong>Answer:</strong> Speeds up SELECT queries significantly.<br /><strong>Example:</strong> Searching a phonebook: index = alphabetical order.</div>
+
+    <div class="q">Why works locally but fails in prod?</div>
+    <div class="ans"><strong>Answer:</strong> Different env variables, CORS, database URLs.<br /><strong>Example:</strong> <code>localhost</code> vs <code>https://myapp.com</code>.</div>
+
+    <div class="q">Why does CORS happen?</div>
+    <div class="ans"><strong>Answer:</strong> Browser same-origin policy prevents cross-domain requests.<br /><strong>Example:</strong> Frontend on port 3000, backend on 5000 → CORS block.</div>
+
+    <div class="q">Why do React components re-render?</div>
+    <div class="ans"><strong>Answer:</strong> State changes, props change, parent re-renders.<br /><strong>Example:</strong> Clicking a button updates count → component re-renders.</div>
+
+    <div class="q">Why prefer ===?</div>
+    <div class="ans"><strong>Answer:</strong> Avoids unexpected type coercion bugs.<br /><strong>Example:</strong> <code>0 == false</code> = true, but <code>0 === false</code> = false.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 15 ========== -->
+    <h2 id="sec15">15. Role-Specific Interviews</h2>
+
+    <h3>Frontend Developer (Sample)</h3>
+    <div class="q">Explain CSS Box Model.</div>
+    <div class="ans">Content → Padding → Border → Margin.</div>
+    <div class="q">How to center a div?</div>
+    <div class="ans">Flexbox: <code>justify-content: center; align-items: center;</code></div>
+    <div class="q">What is Virtual DOM?</div>
+    <div class="ans">Lightweight copy for performance.</div>
+    <div class="q">state vs props?</div>
+    <div class="ans">Props read-only, state mutable.</div>
+    <div class="q">Explain useEffect.</div>
+    <div class="ans">Side effects, dependency array controls runs.</div>
+    <div class="q">Semantic HTML?</div>
+    <div class="ans">Tags that describe meaning (<code>&lt;article&gt;</code>).</div>
+    <div class="q">How to make responsive?</div>
+    <div class="ans">Media queries, relative units.</div>
+    <div class="q">Event delegation?</div>
+    <div class="ans">Parent handles events for children.</div>
+    <div class="q">What is useMemo?</div>
+    <div class="ans">Caches expensive calculations.</div>
+    <div class="q">Debugging API data not showing?</div>
+    <div class="ans">Check network tab, state, useEffect deps.</div>
+
+    <h3 style="margin-top:2rem;">Backend Developer (Sample)</h3>
+    <div class="q">What is Node.js?</div>
+    <div class="ans">JS runtime on V8.</div>
+    <div class="q">Event Loop?</div>
+    <div class="ans">Handles async, non-blocking.</div>
+    <div class="q">Middleware?</div>
+    <div class="ans">Functions between request and response.</div>
+    <div class="q">REST API?</div>
+    <div class="ans">HTTP methods for CRUD.</div>
+    <div class="q">SQL vs NoSQL?</div>
+    <div class="ans">Structured vs flexible.</div>
+    <div class="q">JWT?</div>
+    <div class="ans">Stateless auth token.</div>
+    <div class="q">CORS?</div>
+    <div class="ans">Browser security, enable with <code>cors</code> middleware.</div>
+    <div class="q">Database indexing?</div>
+    <div class="ans">Speeds up queries.</div>
+    <div class="q">Environment variables?</div>
+    <div class="ans">Store secrets outside code.</div>
+
+    <h3 style="margin-top:2rem;">Full-Stack Developer (Sample)</h3>
+    <div class="q">Explain your architecture.</div>
+    <div class="ans">Client (React) → API (Node) → Database (Mongo).</div>
+    <div class="q">Frontend-backend communication?</div>
+    <div class="ans">HTTP requests, Axios/fetch.</div>
+    <div class="q">Auth flow?</div>
+    <div class="ans">Login → JWT → header for protected routes.</div>
+    <div class="q">Deployment steps?</div>
+    <div class="ans">Build frontend, set env vars, start backend.</div>
+    <div class="q">File uploads?</div>
+    <div class="ans">Multer middleware.</div>
+    <div class="q">What is JOIN?</div>
+    <div class="ans">Combines tables.</div>
+    <div class="q">Error handling?</div>
+    <div class="ans">Try-catch, error middleware.</div>
+    <div class="q">State management?</div>
+    <div class="ans">Context API, Redux.</div>
+    <div class="q">Debugging?</div>
+    <div class="ans">Check logs, network tab, console.</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 16 ========== -->
+    <h2 id="sec16">16. HR Questions</h2>
+
+    <div class="q">Tell me about yourself.</div>
+    <div class="ans"><strong>Short:</strong> [Year], [College], interested in web dev, built [Project].<br /><strong>Example:</strong> "I'm a second-year CS student. I love building full-stack apps. I built a task manager for my college."</div>
+
+    <div class="q">Why join this society?</div>
+    <div class="ans"><strong>Short:</strong> Passion for tech, want to learn, contribute to projects.<br /><strong>Example:</strong> "I've seen your projects and want to contribute and learn from seniors."</div>
+
+    <div class="q">Why web development?</div>
+    <div class="ans"><strong>Short:</strong> Creative + problem-solving. Building things people use.<br /><strong>Example:</strong> "I love seeing my code come to life in a browser."</div>
+
+    <div class="q">Why should we select you?</div>
+    <div class="ans"><strong>Short:</strong> Strong technical skills, eager to learn, teamwork.<br /><strong>Example:</strong> "I'm passionate, I learn fast, and I enjoy collaborating."</div>
+
+    <div class="q">Weakness?</div>
+    <div class="ans"><strong>Short:</strong> Honest, mention working to improve.<br /><strong>Example:</strong> "I sometimes over-engineer. I'm learning to keep it simple."</div>
+
+    <div class="q">How do you learn?</div>
+    <div class="ans"><strong>Short:</strong> YouTube, documentation, projects.<br /><strong>Example:</strong> "I build projects to apply what I learn."</div>
+
+    <div class="q">Team conflict?</div>
+    <div class="ans"><strong>Short:</strong> Focus on problem, not person, find common ground.<br /><strong>Example:</strong> "We disagreed on tech stack, evaluated pros/cons, decided democratically."</div>
+
+    <div class="q">What if you don't know an answer?</div>
+    <div class="ans"><strong>Short:</strong> "I don't know, but here's how I'd approach..."<br /><strong>Example:</strong> "I haven't used that, but I'd check docs and experiment."</div>
+
+    <div class="page-break"></div>
+
+    <!-- ========== SECTION 17 ========== -->
+    <h2 id="sec17">17. Mock Interviews (Sample)</h2>
+
+    <h3>Beginner</h3>
+    <div class="q">What is HTML?</div>
+    <div class="ans">HyperText Markup Language, structure of webpages.</div>
+    <div class="q">Difference between div and span?</div>
+    <div class="ans">Block vs inline.</div>
+    <div class="q">What is CSS?</div>
+    <div class="ans">Styling webpages.</div>
+    <div class="q">How to center a div?</div>
+    <div class="ans">Flexbox or Grid.</div>
+    <div class="q">What is JavaScript?</div>
+    <div class="ans">Adds interactivity.</div>
+
+    <h3>Frontend</h3>
+    <div class="q">Virtual DOM?</div>
+    <div class="ans">Lightweight copy for performance.</div>
+    <div class="q">useEffect dependency array?</div>
+    <div class="ans">Controls when effect runs.</div>
+    <div class="q">How to make responsive?</div>
+    <div class="ans">Media queries, flexible units.</div>
+    <div class="q">What is React Router?</div>
+    <div class="ans">Manages navigation.</div>
+    <div class="q">useState vs useReducer?</div>
+    <div class="ans">useState for simple, useReducer for complex state.</div>
+
+    <h3>Backend</h3>
+    <div class="q">Middleware in Express?</div>
+    <div class="ans">Functions between request-response.</div>
+    <div class="q">JWT vs Session?</div>
+    <div class="ans">JWT = stateless, session = server-side.</div>
+    <div class="q">SQL vs NoSQL?</div>
+    <div class="ans">Structured vs flexible.</div>
+    <div class="q">What is bcrypt?</div>
+    <div class="ans">Password hashing.</div>
+    <div class="q">How to handle 500 errors?</div>
+    <div class="ans">Try-catch, error middleware.</div>
+
+    <h3>Full Stack</h3>
+    <div class="q">Explain your project architecture.</div>
+    <div class="ans">React frontend, Node API, MongoDB.</div>
+    <div class="q">How do you handle auth?</div>
+    <div class="ans">JWT in headers.</div>
+    <div class="q">Deployment steps?</div>
+    <div class="ans">Build, set env, start server.</div>
+    <div class="q">How to scale?</div>
+    <div class="ans">Load balancer, caching, indexing.</div>
+    <div class="q">Debugging a 404?</div>
+    <div class="ans">Check route, method, URL.</div>
+
+    <h3>Advanced</h3>
+    <div class="q">Event Loop in Node?</div>
+    <div class="ans">Handles async tasks.</div>
+    <div class="q">How to optimize React?</div>
+    <div class="ans">useMemo, useCallback, React.memo.</div>
+    <div class="q">Database sharding?</div>
+    <div class="ans">Partition data across servers.</div>
+    <div class="q">Microservices vs Monolith?</div>
+    <div class="ans">Independent vs single codebase.</div>
+    <div class="q">CI/CD pipeline?</div>
+    <div class="ans">Automate test and deploy.</div>
+
+    <div class="page-break"></div>
+</div><!-- end .book -->
+
+</body>
+</html>
