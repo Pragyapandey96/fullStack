@@ -42,10 +42,10 @@ function serve(chai: KulhadChai | CuttingChai){
     }
 }
 
-type ChaiOrder = {
-    type: string 
-    sugar: number
-}
+// type ChaiOrder = {
+//     type: string 
+//     sugar: number
+// }
 
 function isChaiOrder(obj:any):obj is ChaiOrder{
     return (
@@ -63,24 +63,24 @@ function serveOrder(item: ChaiOrder | string){
     return `Serving custom chai: ${item}`
 }
 
-type MasalaChai = {type: "masala", spicelevel: number}
+// type MasalaChai = {type: "masala", spicelevel: number}
 type GingerChai = {type: "ginger", amount: number}
 type ElaichiChai = {type: "elaichi", aroma: number}
 
 type Chai = MasalaChai | GingerChai | ElaichiChai
 
-function MakeChai(order: Chai){
-    switch(order.type){
-        case "masala":
-            return `Making masala chai with spice level ${order.spicelevel}`;
-            break;
-        case "ginger":
-            return `Making ginger chai with amount ${order.amount}`;
-            break;
-        case "elaichi":
-            return `Making elaichi chai with aroma ${order.aroma}`;
-    }
-}
+// function MakeChai(order: Chai){
+//     switch(order.type){
+//         case "masala":
+//             return `Making masala chai with spice level ${order.spicelevel}`;
+//             break;
+//         case "ginger":
+//             return `Making ginger chai with amount ${order.amount}`;
+//             break;
+//         case "elaichi":
+//             return `Making elaichi chai with aroma ${order.aroma}`;
+//     }
+// }
 
 function brew(order: MasalaChai | GingerChai | ElaichiChai){
     if("spicelevel" in order){
@@ -88,4 +88,3 @@ function brew(order: MasalaChai | GingerChai | ElaichiChai){
     }
 }
 
-function
