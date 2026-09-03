@@ -66,3 +66,127 @@ class Music {
 }
 
 let m1 = new Music("Shape of you", "Ed Sheeran", "shape.jpg", 3.5, true);
+
+
+// abstract class 
+
+class payment {
+    constructor(protected amount: number, protected account: number){}
+    isPaymentValid(amount: number){
+        return this.amount > 0;
+    }
+}
+class UPI extends payment{
+
+}
+
+// functions
+
+function abcdef(name:string, age: number, gender: string){
+    console.log(name, age, gender);
+}
+
+abcdef("harse", 25, "male");
+
+
+// ... rest/spread
+
+function sum(...arr: number[]){
+    console.log(arr);
+    
+}
+
+sum(1,2,3,4,5,6,7,8,9);
+
+
+function friends(...args: string[]){
+    console.log(args);
+    
+}
+
+friends("sumit", "aman", "abhay");
+
+// spread
+
+let arr1 = [1,2,3,4,5,6,7,8,9];
+let arr3 = [...arr1];
+
+
+// function overloading
+
+function abcd(a: string): void;
+function abcd(a: string, b: number): number;
+
+function abcd(a: string, b?: any){
+    if(typeof a === "string" && typeof b === undefined){
+        console.log("hey");
+    } 
+    if(typeof a === "string" && typeof b === "number"){
+        return 123;
+    }
+    else throw new Error("Invalid arguments");
+}
+
+
+// Generics
+
+function logger<T>(a: T){
+    console.log(a);
+    
+}
+
+logger<string>("hey");
+logger<number>(12);
+logger<boolean>(true);
+logger<undefined>(undefined);
+
+// type assertion
+
+let a1: any = "harsh";
+let b2 = (a1 as string).length;
+
+
+// type Guard - type narrowing
+function abc(arg: string | number){
+    if(typeof arg === "string"){
+       return arg.length;
+    }  
+    else if(typeof arg === "number"){
+        return arg;
+    }
+    else {
+        throw new Error("Invalid argument");
+    }
+}
+
+
+abc(12);
+abc("harsh");
+
+
+class tvRemote {
+   switchTvoff(){
+    console.log("switching of tv");
+   }
+}
+
+class carRemote {
+     switchCaroff(){
+        console.log("switching off car");
+     }
+}
+
+const tv = new tvRemote();
+const car = new carRemote();
+
+function switchOffRemote(device: tvRemote | carRemote){
+    if(device instanceof tvRemote){
+        device.switchTvoff();
+    }
+    if(device instanceof carRemote){
+        device.switchCaroff();
+    }
+}
+
+switchOffRemote(tv);
+switchOffRemote(car);
