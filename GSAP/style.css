@@ -13,14 +13,9 @@ body{
 body{
     background-color: black;
 }
-#box1{
+#box{
     height: 300px;
     width: 300px;
     background-color: crimson;
 }
 
-#box2{
-    height: 300px;
-    width: 300px;
-    background-color: lightseagreen;
-}
